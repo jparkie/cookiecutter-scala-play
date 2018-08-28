@@ -24,3 +24,164 @@ Please follow instructions at https://cookiecutter.readthedocs.io/en/latest/inst
 ```
 > sudo apt-get install cookiecutter
 ```
+
+## Installation
+
+Please execute the following command to create a new Scala Play 2 project.
+
+```
+> cookiecutter git@github.com:jparkie/cookiecutter-scala-play.git
+```
+
+### Configurations
+
+```
+> cookiecutter git@github.com:jparkie/cookiecutter-scala-play.git
+project [example]:
+version [0.1.0-SNAPSHOT]:
+organization [com.github.jparkie]:
+organizationName [jparkie]:
+description [TODO]:
+scala_version [2.12.6]:
+play_version [2.6.18]:
+```
+
+## Features
+
+### Dockerfile + sbt + Makefile
+
+- A Dockerfile with Java 8, Scala 2.11, and sbt 1.1 is provided to self-contain the project.
+- The project is managed with a Makefile to execute various project commands within a Docker container.
+- The Docker container is setup to be efficienct and interoperable with the local machine by mounting the project folder, `~/.sbt`, `~/.ivy2`, the network, and the Docker socket.
+
+#### Makefile
+
+```
+> make help
+Welcome to {{cookiecutter.project}}!
+
+This project is preferably managed with Docker. Please have Docker installed.
+
+Please source project/use-local-sbt.sh if you want the Makefile to use the local sbt
+Please source project/use-docker-sbt.sh if you want the Makefile to use the Docker sbt
+
+    uninstall-docker
+        Remove Docker image sbt_environment_12
+    sbt
+        Start an interactive, Dockerized sbt shell
+    clean
+        Clean the Scala project
+    compile
+        Compile the Scala project
+    coverage-report
+        Generate test coverage reports
+        See https://github.com/scoverage/sbt-scoverage for more information
+    dependency-tree
+        Generate an ASCII tree of the Scala project's dependencies
+        See https://github.com/jrudolph/sbt-dependency-graph for more information
+    docker-stage
+        Generate a directory with the Dockerfile and environment prepared for creating a Docker image
+        See https://sbt-native-packager.readthedocs.io/en/v1.3.7/formats/docker.html#tasks for more information
+    docker-publish-local
+        Build an image using the local Docker server
+        See https://sbt-native-packager.readthedocs.io/en/v1.3.7/formats/docker.html#tasks for more information
+    format
+        Format the Scala project's code
+        See https://scalameta.org/scalafmt/ for more information
+    lint
+        Lint the Scala project's code
+        See http://www.scalastyle.org/sbt.html for more information
+    release
+        Verify the Scala project to version and release the code to git
+        See https://github.com/sbt/sbt-release for more information
+    run-dev
+        Run the Play application in development mode
+        See https://www.playframework.com/documentation/2.6.x/PlayConsole for more information
+    run-prod
+        Run the Play application in production mode
+        See https://www.playframework.com/documentation/2.6.x/Deploying for more information
+    test-all
+        Execute all of the tests in the Scala project
+    test-*-only TEST_ONLY=**
+        Execute only the unit/integration/acceptance tests that match the wildcard in TEST_ONLY
+    test-unit
+        Execute the tests in the Scala project
+    test-integration
+        Execute the itests in the Scala project
+    test-acceptance
+        Execute the atests in the Scala project
+```
+
+### Testing Classes
+
+To promote good testing practices, the project provides the following classes.
+- [BaseSuiteLike.scala](https://github.com/jparkie/cookiecutter-scala-play/blob/master/%7B%7Bcookiecutter.project%7D%7D/test/scala/suites/BaseSuiteLike.scala)
+- [PlayUnitSuite.scala](https://github.com/jparkie/cookiecutter-scala-play/blob/master/%7B%7Bcookiecutter.project%7D%7D/test/scala/suites/PlayUnitSuite.scala)
+- [PlayIntegrationSuite.scala](https://github.com/jparkie/cookiecutter-scala-play/blob/master/%7B%7Bcookiecutter.project%7D%7D/itest/scala/suites/PlayIntegrationSuite.scala)
+- [PlayAcceptanceSuite.scala](https://github.com/jparkie/cookiecutter-scala-play/blob/master/%7B%7Bcookiecutter.project%7D%7D/atest/scala/suites/PlayAcceptanceSuite.scala)
+- [GlobalFixtures.scala](https://github.com/jparkie/cookiecutter-scala-play/blob/master/%7B%7Bcookiecutter.project%7D%7D/test/scala/fixtures/GlobalFixtures.scala)
+
+### Project Structure
+
+The SBT project is organized with `app` for code, `test/scala` for unit tests, `itest/scala` for integration tests and `atest/scala` for acceptance tests.
+
+```
+>tree ./
+./
+├── Dockerfile
+├── Makefile
+├── README.md
+├── app
+│   ├── controllers
+│   │   └── HomeController.scala
+│   └── views
+│       ├── index.scala.html
+│       └── main.scala.html
+├── atest
+│   ├── resources
+│   │   └── TODO
+│   └── scala
+│       └── suites
+│           └── PlayAcceptanceSuite.scala
+├── build.sbt
+├── conf
+│   ├── application.conf
+│   ├── logback.xml
+│   ├── messages
+│   └── routes
+├── itest
+│   ├── resources
+│   │   └── TODO
+│   └── scala
+│       └── suites
+│           └── PlayIntegrationSuite.scala
+├── project
+│   ├── build.properties
+│   ├── plugins.sbt
+│   ├── use-docker-sbt.sh
+│   └── use-local-sbt.sh
+├── public
+│   ├── images
+│   │   └── favicon.png
+│   ├── javascripts
+│   │   └── main.js
+│   └── stylesheets
+│       └── main.css
+├── scalastyle-config.xml
+├── test
+│   ├── resources
+│   │   └── TODO
+│   └── scala
+│       ├── fixtures
+│       │   ├── GlobalFixtures.scala
+│       │   └── package.scala
+│       ├── suites
+│       │   ├── BaseSuiteLike.scala
+│       │   ├── PlayUnitSuite.scala
+│       │   └── package.scala
+│       └── testutil
+│           └── package.scala
+└── version.sbt
+
+23 directories, 31 files
+```
