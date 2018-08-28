@@ -1,0 +1,11 @@
+resolvers += Resolver.bintrayIvyRepo("kamon-io", "sbt-plugins")
+
+addSbtPlugin("com.typesafe.play" %  "sbt-plugin"                  % "{{cookiecutter.play_version}}")
+addSbtPlugin("com.iheart"        %% "sbt-play-swagger"            % "0.7.4")
+addSbtPlugin("org.scalastyle"    %% "scalastyle-sbt-plugin"       % "1.0.0")
+addSbtPlugin("org.scoverage"     %  "sbt-scoverage"               % "1.5.1")
+addSbtPlugin("com.geirsson"      %  "sbt-scalafmt"                % "1.5.1")
+addSbtPlugin("com.github.gseitz" %  "sbt-release"                 % "1.0.9")
+addSbtPlugin("net.virtual-void"  %  "sbt-dependency-graph"        % "0.9.0")
+addSbtPlugin("io.kamon"          %  "sbt-aspectj-runner-play-2.6" % "1.1.0")
+addSbtPlugin("com.lightbend.sbt" %  "sbt-javaagent"               % "0.1.4")
