@@ -12,9 +12,10 @@ import play.api.test.Injecting
   *
   * @see [[https://github.com/testcontainers/testcontainers-scala]].
   */
-abstract class PlayAcceptanceSuite extends BaseSuiteLike
-  with WsScalaTestClient
-  with GuiceOneAppPerSuite
-  with Injecting
-  with ForAllTestContainer
-  with GivenWhenThen
+abstract class PlayAcceptanceSuite
+    extends BaseSuiteLike
+    with WsScalaTestClient
+    with GuiceOneAppPerSuite
+    with Injecting
+    with ForAllTestContainer
+    with GivenWhenThen
