@@ -3,11 +3,11 @@ SHELL := /bin/bash
 TEST_ONLY = **
 
 DOCKER_BASE = docker run \
-	--volume $$(pwd):/repository \
+	--volume $$(pwd):/repo \
 	--volume /var/run/docker.sock:/var/run/docker.sock \
 	--volume $(HOME)/.sbt:/root/.sbt \
 	--volume $(HOME)/.ivy2:/root/.ivy2 \
-	--port 9000:9000
+	--publish 9000:9000
 
 DOCKER_RUN = $(DOCKER_BASE) \
 	sbt_environment_12
@@ -15,7 +15,7 @@ DOCKER_RUN = $(DOCKER_BASE) \
 DOCKER_INTERACTIVE = $(DOCKER_BASE) \
 	--interactive \
 	--tty \
-	--entrypoint sbt \
+	--entrypoint bash \
 	sbt_environment_12
 
 COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES ?= .docker/sbt_environment_12
