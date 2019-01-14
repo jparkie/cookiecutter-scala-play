@@ -48,11 +48,11 @@ play_version [2.6.18]:
 
 ## Features
 
-### Dockerfile + sbt + Makefile
+### Dockerfile + Makefile + Jenkinsfile
 
-- A Dockerfile with Java 8, Scala 2.11, and sbt 1.1 is provided to self-contain the project.
-- The project is managed with a Makefile to execute various project commands within a Docker container.
-- The Docker container is setup to be efficienct and interoperable with the local machine by mounting the project folder, `~/.sbt`, `~/.ivy2`, the network, and the Docker socket.
+- A Dockerfile with Java 8, Scala 2.12, and sbt 1.1, scalafmt 1.5.1, scalastyle 1.0.0, and pre-commit is provided to self-contain the project.
+- A Makefile is provided to execute various project commands within a Docker container.
+- A Jenkinsfile is provided with the following stages: Checkout, Pre-Commit, Clean, Build, Unit Test, Integration Test, Acceptance Test, Coverage, and Docker Publish.
 
 #### Makefile
 
@@ -62,13 +62,17 @@ Welcome to {{cookiecutter.project}}!
 
 This project is preferably managed with Docker. Please have Docker installed.
 
+Otherwise, please install pre-commit, sbt, scalafmt, and scalastyle.
+
 Please source project/use-local-sbt.sh if you want the Makefile to use the local sbt
 Please source project/use-docker-sbt.sh if you want the Makefile to use the Docker sbt
 
     uninstall-docker
         Remove Docker image sbt_environment_12
-    sbt
-        Start an interactive, Dockerized sbt shell
+    init
+        Initialize project directory
+    docker
+        Start an interactive, Dockerized bash session
     clean
         Clean the Scala project
     compile
@@ -91,6 +95,9 @@ Please source project/use-docker-sbt.sh if you want the Makefile to use the Dock
     lint
         Lint the Scala project's code
         See http://www.scalastyle.org/sbt.html for more information
+    pre-commit
+        Execute pre-commit hooks
+        See https://pre-commit.com/ for more information
     release
         Verify the Scala project to version and release the code to git
         See https://github.com/sbt/sbt-release for more information
@@ -129,6 +136,7 @@ The SBT project is organized with `app` for code, `test/scala` for unit tests, `
 >tree ./
 ./
 ├── Dockerfile
+├── Jenkinsfile
 ├── Makefile
 ├── README.md
 ├── app
@@ -155,6 +163,8 @@ The SBT project is organized with `app` for code, `test/scala` for unit tests, `
 │   └── scala
 │       └── suites
 │           └── PlayIntegrationSuite.scala
+├── logs
+│   └── application.log
 ├── project
 │   ├── build.properties
 │   ├── plugins.sbt
@@ -183,5 +193,5 @@ The SBT project is organized with `app` for code, `test/scala` for unit tests, `
 │           └── package.scala
 └── version.sbt
 
-23 directories, 31 files
+24 directories, 33 files
 ```

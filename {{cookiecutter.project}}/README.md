@@ -16,13 +16,17 @@ Welcome to {{cookiecutter.project}}!
 
 This project is preferably managed with Docker. Please have Docker installed.
 
+Otherwise, please install pre-commit, sbt, scalafmt, and scalastyle.
+
 Please source project/use-local-sbt.sh if you want the Makefile to use the local sbt
 Please source project/use-docker-sbt.sh if you want the Makefile to use the Docker sbt
 
     uninstall-docker
         Remove Docker image sbt_environment_12
-    sbt
-        Start an interactive, Dockerized sbt shell
+    init
+        Initialize project directory
+    docker
+        Start an interactive, Dockerized bash session
     clean
         Clean the Scala project
     compile
@@ -45,6 +49,9 @@ Please source project/use-docker-sbt.sh if you want the Makefile to use the Dock
     lint
         Lint the Scala project's code
         See http://www.scalastyle.org/sbt.html for more information
+    pre-commit
+        Execute pre-commit hooks
+        See https://pre-commit.com/ for more information
     release
         Verify the Scala project to version and release the code to git
         See https://github.com/sbt/sbt-release for more information

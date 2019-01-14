@@ -1,34 +1,53 @@
-#
-# Scala and sbt Dockerfile
-#
-# https://github.com/hseeberger/scala-sbt
-#
+FROM openjdk:8-alpine
 
-# Pull base image
-FROM openjdk:8u171
+LABEL maintainer="jparkie <https://github.com/jparkie>"
+LABEL description="A Docker image used for building cookiecutter-scala-play projects"
 
-# Env variables
-ENV SCALA_VERSION 2.12.6
+ENV SBT_HOME /usr/local/sbt
 ENV SBT_VERSION 1.1.6
+ENV SCALA_HOME /usr/local/scala
+ENV SCALA_BINARY_VERSION 2.12
+ENV SCALA_VERSION 2.12.6
+ENV SCALAFMT_VERSION 1.5.1
+ENV SCALASTYLE_VERSION 1.0.0
+ENV PATH $PATH:$SCALA_HOME/bin:$SBT_HOME/bin:/root/bin/
 
-# Scala expects this file
-RUN touch /usr/lib/jvm/java-8-openjdk-amd64/release
+# Install Build Dependencies:
+RUN apk add --no-cache \
+  bash \
+  curl \
+  git \
+  make \
+  python \
+  tar
 
-# Install Scala
-## Piping curl directly in tar
-RUN \
-  curl -fsL https://downloads.typesafe.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz | tar xfz - -C /root/ && \
-  echo >> /root/.bashrc && \
-  echo "export PATH=~/scala-$SCALA_VERSION/bin:$PATH" >> /root/.bashrc
+# Install Scala:
+RUN curl --fail --silent --location https://downloads.lightbend.com/scala/$SCALA_VERSION/scala-$SCALA_VERSION.tgz \
+  | tar --extract --gzip --file - --directory /usr/local --strip-components 1 \
+  && scala -version
 
-# Install sbt
-RUN \
-  curl -L -o sbt-$SBT_VERSION.deb https://dl.bintray.com/sbt/debian/sbt-$SBT_VERSION.deb && \
-  dpkg -i sbt-$SBT_VERSION.deb && \
-  rm sbt-$SBT_VERSION.deb && \
-  apt-get update && \
-  apt-get install sbt && \
-  sbt sbtVersion
+# Install SBT:
+RUN curl --fail --silent --location https://piccolo.link/sbt-$SBT_VERSION.tgz \
+  | tar --extract --gzip --file - --directory /usr/local \
+  && sbt sbtVersion
 
-# Define working directory
-WORKDIR /repository
+# Install coursier:
+RUN curl --fail --silent --output coursier --location https://git.io/vgvpD \
+  && chmod +x coursier \
+  && mv coursier /usr/local/bin
+
+# Install scalafmt:
+RUN coursier bootstrap --repository bintray:scalameta/maven --output /usr/local/bin/scalafmt --standalone --main org.scalafmt.cli.Cli com.geirsson:scalafmt-cli_$SCALA_BINARY_VERSION:$SCALAFMT_VERSION \
+  && scalafmt --version
+
+# Install scalastyle:
+RUN coursier bootstrap --repository https://oss.sonatype.org/content/repositories/snapshots --output /usr/local/bin/scalastyle --standalone --main org.scalastyle.Main org.scalastyle:scalastyle_$SCALA_BINARY_VERSION:$SCALASTYLE_VERSION
+
+# Install pre-commit:
+RUN curl --fail --silent https://pre-commit.com/install-local.py | python -
+
+# Configure Makefile:
+ENV COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES ""
+ENV COOKIECUTTER_SCALA_PLAY_RUN ""
+
+WORKDIR /repo

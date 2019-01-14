@@ -7,10 +7,10 @@ DOCKER_BASE = docker run \
 	--volume /var/run/docker.sock:/var/run/docker.sock \
 	--volume $(HOME)/.sbt:/root/.sbt \
 	--volume $(HOME)/.ivy2:/root/.ivy2 \
-	--net host
+	--port 9000:9000
 
 DOCKER_RUN = $(DOCKER_BASE) \
-	sbt_environment_12 sbt
+	sbt_environment_12
 
 DOCKER_INTERACTIVE = $(DOCKER_BASE) \
 	--interactive \
@@ -18,26 +18,35 @@ DOCKER_INTERACTIVE = $(DOCKER_BASE) \
 	--entrypoint sbt \
 	sbt_environment_12
 
-SBT_RUN_PREREQUISITES ?= .docker/sbt_environment_12
-SBT_RUN ?= $(DOCKER_RUN)
+COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES ?= .docker/sbt_environment_12
+COOKIECUTTER_SCALA_PLAY_RUN ?= $(DOCKER_RUN)
 
 .docker/sbt_environment_12: Dockerfile
 	docker build --tag sbt_environment_12 --file Dockerfile .
 	mkdir -p .docker
 	touch .docker/sbt_environment_12
 
+.pre-commit:
+	curl https://pre-commit.com/install-local.py | python -
+	$(HOME)/bin/pre-commit install
+	touch .pre-commit
+
 help:
 	@echo "Welcome to {{cookiecutter.project}}!"
 	@echo ""
 	@echo "This project is preferably managed with Docker. Please have Docker installed."
+	@echo ""
+	@echo "Otherwise, please install pre-commit, sbt, scalafmt, and scalastyle."
 	@echo ""
 	@echo "Please source project/use-local-sbt.sh if you want the Makefile to use the local sbt"
 	@echo "Please source project/use-docker-sbt.sh if you want the Makefile to use the Docker sbt"
 	@echo ""
 	@echo "    uninstall-docker"
 	@echo "        Remove Docker image sbt_environment_12"
-	@echo "    sbt"
-	@echo "        Start an interactive, Dockerized sbt shell"
+	@echo "    init"
+	@echo "        Initialize project directory"
+	@echo "    docker"
+	@echo "        Start an interactive, Dockerized bash session"
 	@echo "    clean"
 	@echo "        Clean the Scala project"
 	@echo "    compile"
@@ -60,6 +69,9 @@ help:
 	@echo "    lint"
 	@echo "        Lint the Scala project's code"
 	@echo "        See http://www.scalastyle.org/sbt.html for more information"
+	@echo "    pre-commit"
+	@echo "        Execute pre-commit hooks"
+	@echo "        See https://pre-commit.com/ for more information"
 	@echo "    release"
 	@echo "        Verify the Scala project to version and release the code to git"
 	@echo "        See https://github.com/sbt/sbt-release for more information"
@@ -84,64 +96,72 @@ uninstall-docker:
 	rm -rf .docker
 	docker rmi --force sbt_environment_12
 
-sbt: .docker/sbt_environment_12
+init: .pre-commit
+
+docker: .docker/sbt_environment_12
 	$(DOCKER_INTERACTIVE)
 
-clean: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) clean
+clean: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt clean
 
-compile: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) compile
+compile: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt compile
 
-coverage-report: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) coverageReport
+coverage-report: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt coverageReport
 
-dependency-tree: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) dependencyTree
+dependency-tree: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt dependencyTree
 
-docker-stage: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) docker:stage
+docker-stage: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt docker:stage
 
-docker-publish-local: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) docker:publishLocal
+docker-publish-local: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt docker:publishLocal
 
-format: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) scalafmt
+format: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt scalafmt test:scalafmt itest:scalafmt atest:scalafmt
 
-lint: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) scalastyle
+lint: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt scalastyle
 
-release: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) release
+pre-commit: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) pre-commit
 
-run-dev: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) run
+release: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt release
 
-run-prod: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) runProd
+run-dev: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt run
 
-run: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) run
+run-prod: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt runProd
 
-test-all: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) test itest:test atest:test
+test-all: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt test itest:test atest:test
 
-test-unit: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) test
+test-unit: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt test
 
-test-unit-only: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) testOnly $(TEST_ONLY)
+test-unit-only: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt testOnly $(TEST_ONLY)
 
-test-integration: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) itest:test
+test-integration: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt itest:test
 
-test-integration-only: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) itest:testOnly $(TEST_ONLY)
+test-integration-only: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt itest:testOnly $(TEST_ONLY)
 
-test-acceptance: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) atest:test
+test-acceptance: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt atest:test
 
-test-acceptance-only: $(SBT_RUN_PREREQUISITES)
-	$(SBT_RUN) atest:testOnly $(TEST_ONLY)
+test-acceptance-only: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt atest:testOnly $(TEST_ONLY)
 
-.PHONY: help uninstall-docker sbt clean compile coverage-report dependency-tree docker-stage docker-publish-local format lint release run-dev run-prod test-all test-unit test-unit-only test-integration test-integration-only test-acceptance test-acceptance-only
+hook-scalafmt: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) scalafmt --git true --diff-branch $$(git branch | head -n1 | cut -d " "  -f2) --non-interactive
+
+hook-scalastyle: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) scalastyle --config scalastyle-config.xml src/ | (! grep -E "^(error|warning)")
+
+.PHONY: help uninstall-docker init docker clean compile coverage-report dependency-tree docker-stage docker-publish-local format lint pre-commit release run-dev run-prod test-all test-unit test-unit-only test-integration test-integration-only test-acceptance test-acceptance-only hook-scalafmt hook-scalastyle
