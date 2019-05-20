@@ -1,4 +1,4 @@
-# cookiecutter-scala-play (Experimental)
+# cookiecutter-scala-play
 
 Cookiecutter template for a Scala Play 2 application.
 
@@ -141,10 +141,21 @@ The SBT project is organized with `app` for code, `test/scala` for unit tests, `
 ├── README.md
 ├── app
 │   ├── controllers
-│   │   └── HomeController.scala
+│   │   ├── HomeController.scala
+│   │   └── package.scala
+│   ├── models
+│   │   └── package.scala
+│   ├── modules
+│   │   └── package.scala
+│   ├── repositories
+│   │   ├── Repository.scala
+│   │   └── package.scala
+│   ├── util
+│   │   └── package.scala
 │   └── views
 │       ├── index.scala.html
-│       └── main.scala.html
+│       ├── main.scala.html
+│       └── package.scala
 ├── atest
 │   ├── resources
 │   │   └── TODO
@@ -154,6 +165,9 @@ The SBT project is organized with `app` for code, `test/scala` for unit tests, `
 ├── build.sbt
 ├── conf
 │   ├── application.conf
+│   ├── evolutions
+│   │   └── {{cookiecutter.project}}
+│   │       └── 1.sql
 │   ├── logback.xml
 │   ├── messages
 │   └── routes
@@ -193,5 +207,5 @@ The SBT project is organized with `app` for code, `test/scala` for unit tests, `
 │           └── package.scala
 └── version.sbt
 
-24 directories, 33 files
+30 directories, 41 files
 ```
