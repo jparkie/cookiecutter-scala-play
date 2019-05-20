@@ -58,7 +58,7 @@ val jdbcTest            = jdbc                                                  
 val kamon     = "io.kamon"          %% "kamon-core" % KamonVersion
 val slickPlay = "com.typesafe.play" %% "play-slick" % SlickPlayVersion
 
-val playDependencies  = Seq(ehcache, guice, jdbc)
+val playDependencies  = Seq(caffeine, guice, jdbc)
 val testDependencies  = Seq(scalaTest, scalaTestPlay, scalaCheck, mockito, testContainersScala, jdbcTest)
 val otherDependencies = Seq(kamon, slickPlay)
 
