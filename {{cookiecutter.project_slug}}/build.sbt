@@ -7,7 +7,7 @@ organizationName := "{{cookiecutter.organizationName}}"
 /**
   * Library Meta:
   */
-name := "{{cookiecutter.project}}"
+name := "{{cookiecutter.project_slug}}"
 
 /**
   * Scala:
