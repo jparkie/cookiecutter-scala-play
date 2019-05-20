@@ -11,6 +11,9 @@ target
 # Docker
 .docker/**
 
+# Pre-commit
+.pre-commit
+
 # Created by https://www.gitignore.io/api/sbt,osx,java,scala,intellij
 
 ### Intellij ###
