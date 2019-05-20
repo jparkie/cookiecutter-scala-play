@@ -1,5 +1,5 @@
 {
-	"project": "example",
+	"project": "{{cookiecutter.project.lower()|replace(' ', '_')|replace('-', '_')|replace('.', '_')|trim()}}",
 	"version": "0.1.0-SNAPSHOT",
 	"organization": "com.github.jparkie",
 	"organizationName": "jparkie",
