@@ -1,25 +1,22 @@
 @*
- * This template is called from the `index` template. This template
- * handles the rendering of the page header and body tags. It takes
- * two arguments, a `String` for the title of the page and an `Html`
- * object to insert into the body of the page.
+ * Example
  *@
 @(title: String)(content: Html)
 
 <!DOCTYPE html>
-<html lang="en">
+<html>
     <head>
-        @* Here's where we render the page title `String`. *@
+        <meta charset="utf-8">
+        <meta name="author" content="TODO: Author">
+        <meta name="description" content="TODO: Description">
+        <meta name="keywords" content="TODO: Keywords">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>@title</title>
-        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/main.css")">
-        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.png")">
-
+        <link rel="stylesheet" media="screen" href="@routes.Assets.versioned("stylesheets/TODO.css")">
+        <link rel="shortcut icon" type="image/png" href="@routes.Assets.versioned("images/favicon.ico")">
     </head>
     <body>
-        @* And here's where we render the `Html` object containing
-         * the page content. *@
         @content
-
-      <script src="@routes.Assets.versioned("javascripts/main.js")" type="text/javascript"></script>
+        <script src="@routes.Assets.versioned("javascripts/TODO.js")" type="text/javascript"></script>
     </body>
 </html>

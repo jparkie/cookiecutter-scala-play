@@ -82,5 +82,6 @@ Please source project/use-docker-sbt.sh if you want the Makefile to use the Dock
 - **Testcontainers**: https://github.com/testcontainers/testcontainers-scala - Docker-Based Testing
 - **Kamon**: https://github.com/kamon-io/kamon-play - Metrics
 - **Slick**: http://slick.lightbend.com/ - JDBC
-- **PostgreSQL**: https://www.postgresql.org/ - RDBMS
+- **PostgreSQL**: https://www.postgresql.org/ - Disk RDBMS
+- **H2**: http://www.h2database.com/ - Memory RDBMS
 - **Caffeine**: https://github.com/ben-manes/caffeine/ - Cache

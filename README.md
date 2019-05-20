@@ -141,7 +141,7 @@ The SBT project is organized with `app` for code, `test/scala` for unit tests, `
 ├── README.md
 ├── app
 │   ├── controllers
-│   │   ├── HomeController.scala
+│   │   ├── IndexController.scala
 │   │   └── package.scala
 │   ├── models
 │   │   └── package.scala
@@ -165,11 +165,13 @@ The SBT project is organized with `app` for code, `test/scala` for unit tests, `
 ├── build.sbt
 ├── conf
 │   ├── application.conf
+│   ├── dev.conf
 │   ├── evolutions
-│   │   └── {{cookiecutter.project}}
+│   │   └── {{cookiecutter.project_slug}}
 │   │       └── 1.sql
 │   ├── logback.xml
 │   ├── messages
+│   ├── prod.conf
 │   └── routes
 ├── itest
 │   ├── resources
@@ -186,11 +188,11 @@ The SBT project is organized with `app` for code, `test/scala` for unit tests, `
 │   └── use-local-sbt.sh
 ├── public
 │   ├── images
-│   │   └── favicon.png
+│   │   └── favicon.ico
 │   ├── javascripts
-│   │   └── main.js
+│   │   └── TODO.js
 │   └── stylesheets
-│       └── main.css
+│       └── TODO.css
 ├── scalastyle-config.xml
 ├── test
 │   ├── resources
@@ -207,5 +209,5 @@ The SBT project is organized with `app` for code, `test/scala` for unit tests, `
 │           └── package.scala
 └── version.sbt
 
-30 directories, 41 files
+30 directories, 43 files
 ```

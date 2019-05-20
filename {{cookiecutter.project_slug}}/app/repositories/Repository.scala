@@ -1,8 +1,8 @@
 package repositories
 
 import javax.inject.Inject
-import play.api.db.NamedDatabase
 import play.api.db.slick.{DatabaseConfigProvider, HasDatabaseConfigProvider}
+import play.db.NamedDatabase
 import slick.jdbc.JdbcProfile
 
 import scala.concurrent.ExecutionContext
