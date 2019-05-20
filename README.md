@@ -42,8 +42,8 @@ version [0.1.0-SNAPSHOT]:
 organization [com.github.jparkie]:
 organizationName [jparkie]:
 description [TODO]:
-scala_version [2.12.6]:
-play_version [2.6.18]:
+scala_version [2.12.8]:
+play_version [2.7.2]:
 ```
 
 ## Features
