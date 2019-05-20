@@ -40,10 +40,12 @@ javaOptions in Universal += "-Dorg.aspectj.tracing.factory=default"
 // Versions:
 val KamonVersion               = "1.1.0"
 val MockitoVersion             = "2.20.0"
+val PostgreSqlVersion          = "42.2.5"
 val ScalaTestVersion           = "3.0.5"
 val ScalaTestPlayVersion       = "3.1.2"
 val ScalaCheckVersion          = "1.14.0"
-val SlickPlayVersion           = "3.0.0"
+val SlickVersion               = "3.3.0"
+val SlickPlayVersion           = "3.0.3"
 val TestContainersScalaVersion = "0.14.0"
 
 // Test Dependencies:
@@ -55,12 +57,15 @@ val testContainersScala = "com.dimafeng"           %% "testcontainers-scala" % T
 val jdbcTest            = jdbc                                                                            % "test"
 
 // Other Dependencies:
-val kamon     = "io.kamon"          %% "kamon-core" % KamonVersion
-val slickPlay = "com.typesafe.play" %% "play-slick" % SlickPlayVersion
+val kamon               = "io.kamon"           %% "kamon-core"            % KamonVersion
+val postgreSql          = "org.postgresql"      % "postgresql"            % PostgreSqlVersion
+val slick               = "com.typesafe.slick" %% "slick"                 % SlickVersion
+val slickPlay           = "com.typesafe.play"  %% "play-slick"            % SlickPlayVersion
+val slickPlayEvolutions = "com.typesafe.play"  %% "play-slick-evolutions" % SlickPlayVersion
 
 val playDependencies  = Seq(caffeine, guice, jdbc)
 val testDependencies  = Seq(scalaTest, scalaTestPlay, scalaCheck, mockito, testContainersScala, jdbcTest)
-val otherDependencies = Seq(kamon, slickPlay)
+val otherDependencies = Seq(kamon, postgreSql, slick, slickPlay, slickPlayEvolutions)
 
 libraryDependencies ++= (playDependencies ++ testDependencies ++ otherDependencies)
   .map(configureProvidedModuleID)
