@@ -4,10 +4,10 @@ LABEL maintainer="jparkie <https://github.com/jparkie>"
 LABEL description="A Docker image used for building cookiecutter-scala-play projects"
 
 ENV SBT_HOME /usr/local/sbt
-ENV SBT_VERSION 1.1.6
+ENV SBT_VERSION 1.2.8
 ENV SCALA_HOME /usr/local/scala
 ENV SCALA_BINARY_VERSION 2.12
-ENV SCALA_VERSION 2.12.6
+ENV SCALA_VERSION 2.12.8
 ENV SCALAFMT_VERSION 1.5.1
 ENV SCALASTYLE_VERSION 1.0.0
 ENV PATH $PATH:$SCALA_HOME/bin:$SBT_HOME/bin:/root/bin/
