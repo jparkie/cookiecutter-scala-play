@@ -80,6 +80,7 @@ Please source project/use-docker-sbt.sh if you want the Makefile to use the Dock
 - **ScalaCheck**: https://github.com/rickynils/scalacheck - Property-Based Testing
 - **Mockito**: https://github.com/mockito/mockito - Mocking Framework
 - **Testcontainers**: https://github.com/testcontainers/testcontainers-scala - Docker-Based Testing
+- **Scala Guice**: https://github.com/codingwell/scala-guice - Dependency Injection
 - **Kamon**: https://github.com/kamon-io/kamon-play - Metrics
 - **Slick**: http://slick.lightbend.com/ - JDBC
 - **PostgreSQL**: https://www.postgresql.org/ - Disk RDBMS
