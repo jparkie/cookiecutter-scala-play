@@ -86,3 +86,7 @@ Please source project/use-docker-sbt.sh if you want the Makefile to use the Dock
 - **PostgreSQL**: https://www.postgresql.org/ - Disk RDBMS
 - **H2**: http://www.h2database.com/ - Memory RDBMS
 - **Caffeine**: https://github.com/ben-manes/caffeine/ - Cache
+
+## Credits
+
+This package was created with [Cookiecutter](https://github.com/audreyr/cookiecutter) and the [jparkie//cookiecutter-scala-play](https://github.com/jparkie/cookiecutter-scala-play) project template.
