@@ -57,10 +57,10 @@ Please source project/use-docker-sbt.sh if you want the Makefile to use the Dock
         See https://github.com/sbt/sbt-release for more information
     run-dev
         Run the Play application in development mode
-        See https://www.playframework.com/documentation/2.6.x/PlayConsole for more information
+        See https://www.playframework.com/documentation/2.7.x/PlayConsole for more information
     run-prod
         Run the Play application in production mode
-        See https://www.playframework.com/documentation/2.6.x/Deploying for more information
+        See https://www.playframework.com/documentation/2.7.x/Deploying for more information
     test-all
         Execute all of the tests in the Scala project
     test-*-only TEST_ONLY=**
