@@ -38,6 +38,7 @@ Please execute the following command to create a new Scala Play 2 project.
 ```
 > cookiecutter git@github.com:jparkie/cookiecutter-scala-play.git
 project [example]:
+project_slug [example]:
 version [0.1.0-SNAPSHOT]:
 organization [com.github.jparkie]:
 organizationName [jparkie]:
@@ -48,11 +49,12 @@ play_version [2.7.2]:
 
 ## Features
 
-### Dockerfile + Makefile + Jenkinsfile
+### Dockerfile + Makefile + Jenkinsfile + docker-compose
 
-- A Dockerfile with Java 8, Scala 2.12, and sbt 1.1, scalafmt 1.5.1, scalastyle 1.0.0, and pre-commit is provided to self-contain the project.
-- A Makefile is provided to execute various project commands within a Docker container.
-- A Jenkinsfile is provided with the following stages: Checkout, Pre-Commit, Clean, Build, Unit Test, Integration Test, Acceptance Test, Coverage, and Docker Publish.
+- A `Dockerfile` with Java 8, Scala 2.12, and sbt 1.1, scalafmt 1.5.1, scalastyle 1.0.0, and pre-commit is provided to self-contain the project.
+- A `Makefile` is provided to execute various project commands within a Docker container.
+- A `Jenkinsfile` is provided with the following stages: Checkout, Pre-Commit, Clean, Build, Unit Test, Integration Test, Acceptance Test, Coverage, and Docker Publish.
+- `docker-compose.yml` is provided in `tools` to launch a development environment.
 
 #### Makefile
 
@@ -165,13 +167,11 @@ The SBT project is organized with `app` for code, `test/scala` for unit tests, `
 ├── build.sbt
 ├── conf
 │   ├── application.conf
-│   ├── dev.conf
 │   ├── evolutions
 │   │   └── {{cookiecutter.project_slug}}
 │   │       └── 1.sql
 │   ├── logback.xml
 │   ├── messages
-│   ├── prod.conf
 │   └── routes
 ├── itest
 │   ├── resources
@@ -207,7 +207,13 @@ The SBT project is organized with `app` for code, `test/scala` for unit tests, `
 │       │   └── package.scala
 │       └── testutil
 │           └── package.scala
+├── tools
+│   ├── Makefile
+│   ├── conf
+│   │   └── dev.conf
+│   ├── data
+│   └── docker-compose.yml
 └── version.sbt
 
-30 directories, 43 files
+33 directories, 44 files
 ```
