@@ -1,0 +1,43 @@
+version: '3'
+services:
+  {{cookiecutter.project_slug}}-application:
+    image: local/{{cookiecutter.project_slug}}:latest
+    container_name: {{cookiecutter.project_slug}}-application
+    depends_on:
+      - {{cookiecutter.project_slug}}-database
+    environment:
+      - HTTP_APPLICATION_SECRET==9OTkl5spAW>8>FMAzyjK79dCD@P8PEXut5qoHc9UhKE4Ehit_@8MNaCeEZy=azj
+      - JAVA_OPTS=-Dpidfile.path=/dev/null -Dconfig.file=/{{cookiecutter.project_slug}}/conf/dev.conf
+      - POSTGRES_HOST=jdbc:postgresql://{{cookiecutter.project_slug}}-database/
+      - POSTGRES_USER={{cookiecutter.project_slug}}
+      - POSTGRES_PASSWORD={{cookiecutter.project_slug}}
+    hostname: {{cookiecutter.project_slug}}-application
+    networks:
+      - {{cookiecutter.project_slug}}-network
+    ports:
+      - 9000:9000
+    volumes:
+      - ./data:/{{cookiecutter.project_slug}}/data
+      - ./conf:/{{cookiecutter.project_slug}}/conf
+  {{cookiecutter.project_slug}}-database:
+    image: postgres:11.3-alpine
+    container_name: {{cookiecutter.project_slug}}-database
+    environment:
+      - POSTGRES_DB={{cookiecutter.project_slug}}
+      - POSTGRES_USER={{cookiecutter.project_slug}}
+      - POSTGRES_PASSWORD={{cookiecutter.project_slug}}
+    hostname: {{cookiecutter.project_slug}}-database
+    networks:
+      - {{cookiecutter.project_slug}}-network
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data:/{{cookiecutter.project_slug}}/data
+      - ./workspace:/var/lib/postgresql/data
+networks:
+  {{cookiecutter.project_slug}}-network:
+    driver: bridge
+    ipam:
+      driver: default
+      config:
+        - subnet: 172.16.238.0/24

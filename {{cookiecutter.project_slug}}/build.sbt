@@ -126,12 +126,10 @@ enablePlugins(DockerPlugin)
 // Publish Local as "name:version"
 // sbt playGenerateSecret - DO NOT USE DEFAULT HTTP_APPLICATION_SECRET IN DEV/PRODUCTION ; LOCAL USE ONLY!
 
+dockerAlias        := DockerAlias(Some("local"), None, name.value, Some("latest"))
 dockerBaseImage    := "openjdk:8-jre-slim"
 dockerEntrypoint   := Seq("bin/{{cookiecutter.project_slug}}", "-Dpidfile.path=/dev/null")
 dockerExposedPorts ++= Seq(9000, 9001)
-dockerEnvVars      ++= Map(
-  "HTTP_APPLICATION_SECRET" -> "=9OTkl5spAW>8>FMAzyjK79dCD@P8PEXut5qoHc9UhKE4Ehit_@8MNaCeEZy=azj"
-)
 
 /**
   * Release:
