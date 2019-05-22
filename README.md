@@ -51,7 +51,7 @@ play_version [2.7.2]:
 
 ### Dockerfile + Makefile + Jenkinsfile + docker-compose
 
-- A `Dockerfile` with Java 8, Scala 2.12, and sbt 1.1, scalafmt 1.5.1, scalastyle 1.0.0, and pre-commit is provided to self-contain the project.
+- A `Dockerfile` with Java 8, Scala 2.12, and sbt 1.2, scalafmt 1.5.1, scalastyle 1.0.0, and pre-commit is provided to self-contain the project.
 - A `Makefile` is provided to execute various project commands within a Docker container.
 - A `Jenkinsfile` is provided with the following stages: Checkout, Pre-Commit, Clean, Build, Unit Test, Integration Test, Acceptance Test, Coverage, and Docker Publish.
 - `docker-compose.yml` is provided in `tools` to launch a development environment.
