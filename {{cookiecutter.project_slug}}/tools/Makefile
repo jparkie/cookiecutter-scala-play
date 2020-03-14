@@ -16,6 +16,8 @@ help:
 	@echo "        Remove Docker image example:"
 	@echo "    up"
 	@echo "        Start the development environment"
+	@echo "    up-db"
+	@echo "        Start only the development database"
 	@echo "    down"
 	@echo "        Stop the development environment"
 	@echo "    attach-application"
@@ -32,6 +34,9 @@ uninstall-docker:
 up: .docker/{{cookiecutter.project_slug}}
 	docker-compose up
 
+up-db: .docker/{{cookiecutter.project_slug}}
+	docker-compose up {{cookiecutter.project_slug}}-database
+
 down: .docker/{{cookiecutter.project_slug}}
 	docker-compose down
 
@@ -44,4 +49,4 @@ attach-database:
 attach-psql:
 	docker exec --interactive --tty -e POSTGRES_PASSWORD={{cookiecutter.project_slug}} {{cookiecutter.project_slug}}-database /usr/local/bin/psql --username {{cookiecutter.project_slug}} --dbname {{cookiecutter.project_slug}}
 
-.PHONY: help uninstall-docker up down attach-application attach-database attach-psql
+.PHONY: help uninstall-docker up up-db down attach-application attach-database attach-psql

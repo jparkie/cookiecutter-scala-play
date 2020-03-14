@@ -7,7 +7,7 @@ services:
       - {{cookiecutter.project_slug}}-database
     environment:
       - HTTP_APPLICATION_SECRET==9OTkl5spAW>8>FMAzyjK79dCD@P8PEXut5qoHc9UhKE4Ehit_@8MNaCeEZy=azj
-      - JAVA_OPTS=-Dpidfile.path=/dev/null -Dconfig.file=/{{cookiecutter.project_slug}}/conf/dev.conf
+      - JAVA_OPTS=-Dpidfile.path=/dev/null -Dconfig.file=/{{cookiecutter.project_slug}}/conf/deploy.conf
       - POSTGRES_HOST=jdbc:postgresql://{{cookiecutter.project_slug}}-database/
       - POSTGRES_USER={{cookiecutter.project_slug}}
       - POSTGRES_PASSWORD={{cookiecutter.project_slug}}
