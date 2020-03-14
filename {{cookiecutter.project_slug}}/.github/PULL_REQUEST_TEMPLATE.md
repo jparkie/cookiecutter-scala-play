@@ -26,6 +26,7 @@
 - [ ] This change is a trivial rework / code cleanup without any test coverage.
 - [ ] This change is covered by existing tests.
 - [ ] This change is covered by new tests.
+- [ ] This change is partially covered by manual tests.
 
 ### Existing Tests
 
