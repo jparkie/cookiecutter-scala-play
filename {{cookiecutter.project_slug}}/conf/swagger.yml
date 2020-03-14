@@ -1,0 +1,9 @@
+openapi: "3.0.0"
+info:
+  title: "{{cookiecutter.project}}"
+  description: "{{cookiecutter.description}}"
+servers:
+  - url: TODO
+tags:
+- name: "TODO"
+  description: "TODO"
