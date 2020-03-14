@@ -34,6 +34,12 @@ javaAgents += "org.aspectj" % "aspectjweaver" % "1.8.13"
 javaOptions in Universal += "-Dorg.aspectj.tracing.factory=default"
 
 /**
+  * Scala-Async Feature:
+  */
+libraryDependencies += "org.scala-lang.modules" %% "scala-async"   % "0.10.0"
+libraryDependencies += "org.scala-lang"          % "scala-reflect" % scalaVersion.value % Provided
+
+/**
   * Library Dependencies:
   */
 
@@ -41,14 +47,20 @@ javaOptions in Universal += "-Dorg.aspectj.tracing.factory=default"
 val H2Version                  = "1.4.199"
 val KamonVersion               = "1.1.0"
 val MockitoVersion             = "2.20.0"
+val PlayJsonVersion            = "2.7.3"
 val PostgreSqlVersion          = "42.2.5"
 val ScalaGuiceVersion          = "4.2.3"
+val ScalaJava8CompatVersion    = "0.9.0"
 val ScalaTestVersion           = "3.0.5"
 val ScalaTestPlayVersion       = "3.1.2"
 val ScalaCheckVersion          = "1.14.0"
 val SlickVersion               = "3.3.0"
+val SlickPgVersion             = "0.18.1"
 val SlickPlayVersion           = "4.0.1"
 val TestContainersScalaVersion = "0.14.0"
+
+// Language Dependencies:
+val scalaJava8Compat = "org.scala-lang.modules" %% "scala-java8-compat" % ScalaJava8CompatVersion
 
 // Test Dependencies:
 val scalaTest           = "org.scalatest"          %% "scalatest"            % ScalaTestVersion           % "test"
@@ -56,22 +68,25 @@ val scalaTestPlay       = "org.scalatestplus.play" %% "scalatestplus-play"   % S
 val scalaCheck          = "org.scalacheck"         %% "scalacheck"           % ScalaCheckVersion          % "test"
 val mockito             = "org.mockito"             % "mockito-core"         % MockitoVersion             % "test"
 val testContainersScala = "com.dimafeng"           %% "testcontainers-scala" % TestContainersScalaVersion % "test"
-val jdbcTest            = jdbc                                                                            % "test"
 
 // Other Dependencies:
-val h2                  = "com.h2database"      % "h2"                    % H2Version
-val kamon               = "io.kamon"           %% "kamon-core"            % KamonVersion
-val postgreSql          = "org.postgresql"      % "postgresql"            % PostgreSqlVersion
-val scalaGuice          = "net.codingwell"     %% "scala-guice"           % ScalaGuiceVersion
-val slick               = "com.typesafe.slick" %% "slick"                 % SlickVersion
-val slickPlay           = "com.typesafe.play"  %% "play-slick"            % SlickPlayVersion
-val slickPlayEvolutions = "com.typesafe.play"  %% "play-slick-evolutions" % SlickPlayVersion
+val h2                  = "com.h2database"       % "h2"                    % H2Version
+val kamon               = "io.kamon"            %% "kamon-core"            % KamonVersion
+val playJsonJoda        = "com.typesafe.play"   %% "play-json-joda"        % PlayJsonVersion
+val postgreSql          = "org.postgresql"       % "postgresql"            % PostgreSqlVersion
+val scalaGuice          = "net.codingwell"      %% "scala-guice"           % ScalaGuiceVersion
+val slick               = "com.typesafe.slick"  %% "slick"                 % SlickVersion
+val slickPg             = "com.github.tminglei" %% "slick-pg"              % SlickPgVersion
+val slickPgJson         = "com.github.tminglei" %% "slick-pg_play-json"    % SlickPgVersion
+val slickPlay           = "com.typesafe.play"   %% "play-slick"            % SlickPlayVersion
+val slickPlayEvolutions = "com.typesafe.play"   %% "play-slick-evolutions" % SlickPlayVersion
 
-val playDependencies  = Seq(caffeine, guice)
-val testDependencies  = Seq(scalaTest, scalaTestPlay, scalaCheck, mockito, testContainersScala, jdbcTest)
-val otherDependencies = Seq(h2, kamon, postgreSql, scalaGuice, slick, slickPlay, slickPlayEvolutions)
+val languageDependencies = Seq(scalaJava8Compat)
+val playDependencies     = Seq(caffeine, filters, guice)
+val testDependencies     = Seq(scalaTest, scalaTestPlay, scalaCheck, mockito, testContainersScala)
+val otherDependencies    = Seq(h2, kamon, playJsonJoda, postgreSql, scalaGuice, slick, slickPg, slickPlay, slickPlayEvolutions)
 
-libraryDependencies ++= (playDependencies ++ testDependencies ++ otherDependencies)
+libraryDependencies ++= (languageDependencies ++ playDependencies ++ testDependencies ++ otherDependencies)
   .map(configureProvidedModuleID)
 
 /**
@@ -118,6 +133,16 @@ coverageEnabled in ScalaIntegrationTest := true
 coverageEnabled in ScalaAcceptanceTest := true
 
 /**
+  * Swagger:
+  */
+enablePlugins(SwaggerPlugin)
+
+swaggerV3               := true
+swaggerDomainNameSpaces := Seq("controllers", "utils")
+swaggerNamingStrategy   := "snake_case"
+swaggerPrettyJson       := true
+
+/**
   * Docker:
   */
 enablePlugins(DockerPlugin)
@@ -125,6 +150,10 @@ enablePlugins(DockerPlugin)
 // See https://sbt-native-packager.readthedocs.io/en/v1.3.7/formats/docker.html#configuration
 // Publish Local as "name:version"
 // sbt playGenerateSecret - DO NOT USE DEFAULT HTTP_APPLICATION_SECRET IN DEV/PRODUCTION ; LOCAL USE ONLY!
+
+daemonUser in Docker := name.value
+maintainer in Docker := organizationName.value
+version    in Docker := version.value
 
 dockerAlias        := DockerAlias(Some("local"), None, name.value, Some("latest"))
 dockerBaseImage    := "openjdk:8-jre-slim"

@@ -1,7 +1,7 @@
 resolvers += Resolver.bintrayIvyRepo("kamon-io", "sbt-plugins")
 
 addSbtPlugin("com.typesafe.play" %  "sbt-plugin"                  % "{{cookiecutter.play_version}}")
-addSbtPlugin("com.iheart"        %% "sbt-play-swagger"            % "0.7.4")
+addSbtPlugin("com.iheart"        %  "sbt-play-swagger"            % "0.9.1-PLAY2.7")
 addSbtPlugin("org.scalastyle"    %% "scalastyle-sbt-plugin"       % "1.0.0")
 addSbtPlugin("org.scoverage"     %  "sbt-scoverage"               % "1.5.1")
 addSbtPlugin("com.geirsson"      %  "sbt-scalafmt"                % "1.5.1")

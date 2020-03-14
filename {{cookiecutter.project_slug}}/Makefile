@@ -8,14 +8,15 @@ DOCKER_BASE = docker run \
 	--volume $(HOME)/.sbt:/root/.sbt \
 	--volume $(HOME)/.ivy2:/root/.ivy2 \
 	--publish 9000:9000 \
-	--interactive \
-	--tty
+	--interactive
 
 DOCKER_RUN = $(DOCKER_BASE) \
 	sbt_environment_12
 
 DOCKER_INTERACTIVE = $(DOCKER_BASE) \
 	--entrypoint bash \
+	--interactive \
+	--tty \
 	sbt_environment_12
 
 COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES ?= .docker/sbt_environment_12
