@@ -140,83 +140,99 @@ The SBT project is organized with `app` for code, `test/scala` for unit tests, `
 ```
 >tree ./
 ./
-├── Dockerfile
-├── Jenkinsfile
-├── Makefile
+├── LICENSE
 ├── README.md
-├── app
-│   ├── controllers
-│   │   ├── IndexController.scala
-│   │   └── package.scala
-│   ├── models
-│   │   └── package.scala
-│   ├── modules
-│   │   └── package.scala
-│   ├── repositories
-│   │   ├── Repository.scala
-│   │   └── package.scala
-│   ├── util
-│   │   └── package.scala
-│   └── views
-│       ├── index.scala.html
-│       ├── main.scala.html
-│       └── package.scala
-├── atest
-│   ├── resources
-│   │   └── TODO
-│   └── scala
-│       └── suites
-│           └── PlayAcceptanceSuite.scala
-├── build.sbt
-├── conf
-│   ├── application.conf
-│   ├── evolutions
-│   │   └── {{cookiecutter.project_slug}}
-│   │       └── 1.sql
-│   ├── logback.xml
-│   ├── messages
-│   └── routes
-├── itest
-│   ├── resources
-│   │   └── TODO
-│   └── scala
-│       └── suites
-│           └── PlayIntegrationSuite.scala
-├── logs
-│   └── application.log
-├── project
-│   ├── build.properties
-│   ├── plugins.sbt
-│   ├── use-docker-sbt.sh
-│   └── use-local-sbt.sh
-├── public
-│   ├── images
-│   │   └── favicon.ico
-│   ├── javascripts
-│   │   └── TODO.js
-│   └── stylesheets
-│       └── TODO.css
-├── scalastyle-config.xml
-├── test
-│   ├── resources
-│   │   └── TODO
-│   └── scala
-│       ├── fixtures
-│       │   ├── GlobalFixtures.scala
-│       │   └── package.scala
-│       ├── suites
-│       │   ├── BaseSuiteLike.scala
-│       │   ├── PlayUnitSuite.scala
-│       │   └── package.scala
-│       └── testutil
-│           └── package.scala
-├── tools
-│   ├── Makefile
-│   ├── conf
-│   │   └── dev.conf
-│   ├── data
-│   └── docker-compose.yml
-└── version.sbt
+├── cookiecutter.json
+├── hooks
+│   └── post_gen_project.sh
+└── {{cookiecutter.project_slug}}
+    ├── Dockerfile
+    ├── Jenkinsfile
+    ├── Makefile
+    ├── README.md
+    ├── app
+    │   ├── controllers
+    │   │   ├── IndexController.scala
+    │   │   └── package.scala
+    │   ├── models
+    │   │   └── package.scala
+    │   ├── modules
+    │   │   └── package.scala
+    │   ├── repositories
+    │   │   ├── Repository.scala
+    │   │   └── package.scala
+    │   ├── util
+    │   │   └── package.scala
+    │   └── views
+    │       ├── index.scala.html
+    │       ├── main.scala.html
+    │       └── package.scala
+    ├── atest
+    │   ├── resources
+    │   │   └── TODO
+    │   └── scala
+    │       └── suites
+    │           └── PlayAcceptanceSuite.scala
+    ├── build.sbt
+    ├── conf
+    │   ├── application.conf
+    │   ├── evolutions
+    │   │   └── {{cookiecutter.project_slug}}
+    │   │       └── 1.sql
+    │   ├── logback.xml
+    │   ├── messages
+    │   ├── routes
+    │   ├── swagger-custom-mappings.yml
+    │   └── swagger.yml
+    ├── itest
+    │   ├── resources
+    │   │   └── TODO
+    │   └── scala
+    │       └── suites
+    │           └── PlayIntegrationSuite.scala
+    ├── logs
+    │   └── application.log
+    ├── project
+    │   ├── build.properties
+    │   ├── plugins.sbt
+    │   ├── use-docker-sbt.sh
+    │   └── use-local-sbt.sh
+    ├── public
+    │   ├── images
+    │   │   └── favicon.ico
+    │   ├── javascripts
+    │   │   └── TODO.js
+    │   └── stylesheets
+    │       └── TODO.css
+    ├── scalastyle-config.xml
+    ├── terraform
+    │   ├── Makefile
+    │   ├── conf
+    │   │   ├── Dockerrun.aws.json
+    │   │   └── deploy.conf
+    │   ├── main.tf
+    │   ├── output.tf
+    │   └── variables.tf
+    ├── test
+    │   ├── resources
+    │   │   └── TODO
+    │   └── scala
+    │       ├── fixtures
+    │       │   ├── GlobalFixtures.scala
+    │       │   └── package.scala
+    │       ├── suites
+    │       │   ├── BaseSuiteLike.scala
+    │       │   ├── PlayUnitSuite.scala
+    │       │   └── package.scala
+    │       └── testutil
+    │           └── package.scala
+    ├── tools
+    │   ├── Makefile
+    │   ├── conf
+    │   │   └── deploy.conf
+    │   ├── data
+    │   └── docker-compose.yml
+    └── version.sbt
 
-33 directories, 44 files
+37 directories, 56 files
 ```
