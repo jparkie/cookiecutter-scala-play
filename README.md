@@ -49,12 +49,13 @@ play_version [2.7.2]:
 
 ## Features
 
-### Dockerfile + Makefile + Jenkinsfile + docker-compose
+### Dockerfile + Makefile + Jenkinsfile + docker-compose + IntelliJ IDEA Code Templates
 
 - A `Dockerfile` with Java 8, Scala 2.12, and sbt 1.2, scalafmt 1.5.1, scalastyle 1.0.0, and pre-commit is provided to self-contain the project.
 - A `Makefile` is provided to execute various project commands within a Docker container.
 - A `Jenkinsfile` is provided with the following stages: Checkout, Pre-Commit, Clean, Build, Unit Test, Integration Test, Acceptance Test, Coverage, and Docker Publish.
 - `docker-compose.yml` is provided in `tools` to launch a development environment.
+- `.idea/fileTemplates` are provided to bootstrap the creation of models, tables, and repositories
 
 #### Makefile
 
@@ -161,6 +162,9 @@ The SBT project is organized with `app` for code, `test/scala` for unit tests, `
     │   ├── repositories
     │   │   ├── Repository.scala
     │   │   └── package.scala
+    │   ├── tables
+    │   │   ├── DBProfile.scala
+    │   │   └── package.scala
     │   ├── util
     │   │   └── package.scala
     │   └── views
@@ -234,5 +238,5 @@ The SBT project is organized with `app` for code, `test/scala` for unit tests, `
     │   └── docker-compose.yml
     └── version.sbt
 
-37 directories, 56 files
+38 directories, 58 files
 ```
