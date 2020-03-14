@@ -61,6 +61,9 @@ Please source project/use-docker-sbt.sh if you want the Makefile to use the Dock
     run-prod
         Run the Play application in production mode
         See https://www.playframework.com/documentation/2.7.x/Deploying for more information
+    swagger
+        Generate Swagger/OpenAPI 3.0 documentation
+        See https://github.com/iheartradio/play-swagger for more information
     test-all
         Execute all of the tests in the Scala project
     test-*-only TEST_ONLY=**

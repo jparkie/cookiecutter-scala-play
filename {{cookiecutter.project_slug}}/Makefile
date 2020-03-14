@@ -82,6 +82,9 @@ help:
 	@echo "    run-prod"
 	@echo "        Run the Play application in production mode"
 	@echo "        See https://www.playframework.com/documentation/2.7.x/Deploying for more information"
+	@echo "    swagger"
+	@echo "        Generate Swagger/OpenAPI 3.0 documentation"
+	@echo "        See https://github.com/iheartradio/play-swagger for more information"
 	@echo "    test-all"
 	@echo "        Execute all of the tests in the Scala project"
 	@echo "    test-*-only TEST_ONLY=**"
@@ -138,6 +141,9 @@ run-dev: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
 run-prod: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
 	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt runProd
 
+swagger: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
+	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt swagger
+
 test-all: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
 	$(COOKIECUTTER_SCALA_PLAY_RUN) sbt test itest:test atest:test
 
@@ -165,4 +171,4 @@ hook-scalafmt: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
 hook-scalastyle: $(COOKIECUTTER_SCALA_PLAY_RUN_PREREQUISITES)
 	$(COOKIECUTTER_SCALA_PLAY_RUN) scalastyle --config scalastyle-config.xml src/ | (! grep -E "^(error|warning)")
 
-.PHONY: help uninstall-docker init docker clean compile coverage-report dependency-tree docker-stage docker-publish-local format lint pre-commit release run-dev run-prod test-all test-unit test-unit-only test-integration test-integration-only test-acceptance test-acceptance-only hook-scalafmt hook-scalastyle
+.PHONY: help uninstall-docker init docker clean compile coverage-report dependency-tree docker-stage docker-publish-local format lint pre-commit release run-dev run-prod swagger test-all test-unit test-unit-only test-integration test-integration-only test-acceptance test-acceptance-only hook-scalafmt hook-scalastyle
