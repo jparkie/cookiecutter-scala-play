@@ -1,0 +1,14 @@
+{
+    "AWSEBDockerrunVersion": 1,
+    "Image": {
+        "Name": "{{cookiecutter.project_slug}}",
+        "Update": "true"
+    },
+    "Ports": [
+        {
+          "ContainerPort": 9000
+        }
+    ],
+    "Entrypoint": "bin/{{cookiecutter.project_slug}}",
+    "Command": "-Dpidfile.path=/dev/null -Dconfig.file=/opt/docker/conf/deploy.conf"
+}
