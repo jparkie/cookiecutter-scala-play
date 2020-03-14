@@ -83,6 +83,7 @@ Please source project/use-docker-sbt.sh if you want the Makefile to use the Dock
 - **Scala Guice**: https://github.com/codingwell/scala-guice - Dependency Injection
 - **Kamon**: https://github.com/kamon-io/kamon-play - Metrics
 - **Slick**: http://slick.lightbend.com/ - JDBC
+- **Slick-PG**: https://github.com/tminglei/slick-pg - PostgreSQL Slick Extensions
 - **PostgreSQL**: https://www.postgresql.org/ - Disk RDBMS
 - **H2**: http://www.h2database.com/ - Memory RDBMS
 - **Caffeine**: https://github.com/ben-manes/caffeine/ - Cache
